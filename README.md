@@ -1,12 +1,12 @@
 <p align="center">
   <img width="400" src="https://user-images.githubusercontent.com/4658208/60469862-2e40bf00-9c2c-11e9-87f7-afe164648de4.png">
-  <h3 align="center">waka-box</h3>
+  <h3 align="center">Waka Box [ REMASTERED ]</h3>
   <p align="center">Update a pinned gist to contain your weekly WakaTime stats</p>
+  <br>
+  <p align="center">The original Waka Box is quite out-of-date, so, after a few months of using it, I decided to continue the development of it.</p>
 </p>
 
 ---
-
-> 📌✨ For more pinned-gist projects like this one, check out: https://github.com/matchai/awesome-pinned-gists
 
 ## Setup
 
