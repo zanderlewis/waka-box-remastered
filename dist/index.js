@@ -12193,51 +12193,58 @@
     const v = new e(m);
     const h = new i({ auth: `token ${l}` });
     async function main() {
-      try {
-        const e = await v.getMyStats({ range: p.LAST_30_DAYS });
-        await updateGist(e);
-      } catch (e) {
-        console.error(`Error fetching WakaTime stats: ${e}`);
-      }
+      const e = await v.getMyStats({ range: p.LAST_7_DAYS });
+      await updateGist(e);
     }
     function trimRightStr(e, p) {
       return e.length > p ? e.substring(0, p - 3) + "..." : e;
     }
     async function updateGist(e) {
+      let p;
       try {
-        const p = await h.gists.get({ gist_id: s });
-        const i = generateGistContent(e);
-        if (i.length > 0) {
-          const e = Object.keys(p.data.files)[0];
-          await h.gists.update({
-            gist_id: s,
-            files: {
-              [e]: {
-                filename: `📊 Weekly development breakdown`,
-                content: i.join("\n")
-              }
-            }
-          });
-        }
+        p = await h.gists.get({ gist_id: s });
       } catch (e) {
-        console.error(`Unable to update gist: ${e}`);
+        console.error(`Unable to get gist\n${e}`);
+      }
+      const i = [];
+      for (let p = 0; p < Math.min(e.data.languages.length, 5); p++) {
+        const s = e.data.languages[p];
+        const { name: l, percent: m, text: v } = s;
+        const h = [
+          trimRightStr(l, 10).padEnd(10),
+          v.padEnd(14),
+          generateBarChart(m, 21),
+          String(m.toFixed(1)).padStart(5) + "%"
+        ];
+        i.push(h.join(" "));
+      }
+      if (i.length == 0) return;
+      try {
+        const e = Object.keys(p.data.files)[0];
+        await h.gists.update({
+          gist_id: s,
+          files: {
+            [e]: {
+              filename: `📊 Weekly development breakdown`,
+              content: i.join("\n")
+            }
+          }
+        });
+      } catch (e) {
+        console.error(`Unable to update gist\n${e}`);
       }
     }
-    function generateGistContent(e) {
-      return e.data.languages.slice(0, 5).map(e => {
-        const { name: p, percent: i, text: s } = e;
-        return [
-          trimRightStr(p, 10).padEnd(10),
-          s.padEnd(14),
-          generateBarChart(i, 21),
-          `${i.toFixed(1).padStart(5)}%`
-        ].join(" ");
-      });
-    }
     function generateBarChart(e, p) {
-      const i = Math.round((e / 100) * p);
-      const s = p - i;
-      return "=".repeat(i) + "_".repeat(s);
+      const i = "_=";
+      const s = Math.floor((p * 2 * e) / 100);
+      const l = Math.floor(s / 2);
+      if (l >= p) {
+        return i.substring(1, 2).repeat(p);
+      }
+      const m = s % 2;
+      return [i.substring(1, 2).repeat(l), i.substring(m, m + 1)]
+        .join("")
+        .padEnd(p, i.substring(0, 1));
     }
     (async () => {
       await main();
