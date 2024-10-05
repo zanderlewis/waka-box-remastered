@@ -8,7 +8,7 @@
     "build": "NODE_OPTIONS=--openssl-legacy-provider ncc build index.js --out dist --minify"
   },
   "dependencies": {
-    "@octokit/rest": "^19.0.5",
+    "@octokit/rest": "^21.0.2",
     "axios": ">=1.7.7",
     "dotenv": "^16.4.5",
     "wakatime-client-remastered": ">=1.0.0"
