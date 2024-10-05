@@ -10,7 +10,7 @@
   "dependencies": {
     "@octokit/rest": "^19.0.5",
     "axios": ">=1.7.7",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16.4.5",
     "wakatime-client-remastered": ">=1.0.0"
   },
   "devDependencies": {
