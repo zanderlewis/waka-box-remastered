@@ -1,6 +1,6 @@
 {
   "name": "waka-box",
-  "version": "3.0.0",
+  "version": "0.1.1",
   "description": "📊 Update a gist to contain your weekly WakaTime stats",
   "author": "Zander Lewis <zander@zanderlewis.deve>",
   "license": "ISC",
@@ -11,7 +11,7 @@
     "@octokit/rest": "^19.0.5",
     "axios": ">=1.7.4",
     "dotenv": "^16.0.3",
-    "wakatime-client": "github:zanderlewis/wakatime-client"
+    "wakatime-client-remastered": ">=1.0.0"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.28.0",
