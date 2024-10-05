@@ -2,16 +2,16 @@
   "name": "waka-box",
   "version": "3.0.0",
   "description": "📊 Update a gist to contain your weekly WakaTime stats",
-  "author": "Matan Kushner <hello@matchai.me>",
+  "author": "Zander Lewis <zander@zanderlewis.deve>",
   "license": "ISC",
   "scripts": {
     "build": "NODE_OPTIONS=--openssl-legacy-provider ncc build index.js --out dist --minify"
   },
   "dependencies": {
     "@octokit/rest": "^19.0.5",
-    "axios": "^1.7.4",
+    "axios": ">=1.7.4",
     "dotenv": "^16.0.3",
-    "wakatime-client": "^2.7.0"
+    "wakatime-client": "github:zanderlewis/wakatime-client"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.28.0",

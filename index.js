@@ -12,8 +12,25 @@ const wakatime = new WakaTimeClient(wakatimeApiKey);
 
 const octokit = new Octokit({ auth: `token ${githubToken}` });
 
+// Set Global Variables
+let range = RANGE.LAST_7_DAYS;
+let gistText = "";
+let bar = "_=";
+
+// Set Gist Text
+if (range == RANGE.LAST_7_DAYS) {
+  gistText = "📊 Weekly development breakdown";
+} else if (range == RANGE.LAST_30_DAYS) {
+  gistText = "📊 Monthly development breakdown";
+} else if (range == RANGE.LAST_6_MONTHS) {
+  gistText = "📊 Bi-Yearly development breakdown";
+} else if (range == RANGE.LAST_YEAR) {
+  gistText = "📊 Yearly development breakdown";
+}
+
+// Supported Ranges: LAST_7_DAYS, LAST_30_DAYS, LAST_6_MONTHS, LAST_YEAR
 async function main() {
-  const stats = await wakatime.getMyStats({ range: RANGE.LAST_7_DAYS });
+  const stats = await wakatime.getMyStats({ range: range });
   await updateGist(stats);
 }
 
@@ -54,7 +71,7 @@ async function updateGist(stats) {
       gist_id: gistId,
       files: {
         [filename]: {
-          filename: `📊 Weekly development breakdown`,
+          filename: gistText,
           content: lines.join("\n")
         }
       }
@@ -65,16 +82,19 @@ async function updateGist(stats) {
 }
 
 function generateBarChart(percent, size) {
-  const syms = "_=";
+  const syms = bar;
 
-  const frac = Math.floor((size * 2 * percent) / 100);
-  const barsFull = Math.floor(frac / 2);
+  const frac = Math.floor((size * bar.length * percent) / 100);
+  const barsFull = Math.floor(frac / bar.length);
   if (barsFull >= size) {
-    return syms.substring(1, 2).repeat(size);
+    return syms.substring(bar.length - 1, bar.length).repeat(size);
   }
-  const semi = frac % 2;
+  const semi = frac % bar.length;
 
-  return [syms.substring(1, 2).repeat(barsFull), syms.substring(semi, semi + 1)]
+  return [
+    syms.substring(bar.length - 1, bar.length).repeat(barsFull),
+    syms.substring(semi, semi + 1)
+  ]
     .join("")
     .padEnd(size, syms.substring(0, 1));
 }
