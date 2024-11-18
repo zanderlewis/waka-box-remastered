@@ -14,7 +14,7 @@
     "wakatime-client-remastered": ">=1.0.4"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.38.2",
+    "@vercel/ncc": "^0.38.3",
     "husky": "9.1.6",
     "prettier": "3.3.3",
     "pretty-quick": "4.0.0"
