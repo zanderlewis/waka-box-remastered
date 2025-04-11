@@ -1,6 +1,6 @@
 {
   "name": "waka-box",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "📊 Update a gist to contain your weekly WakaTime stats",
   "author": "Zander Lewis <zander@zanderlewis.deve>",
   "license": "ISC",
