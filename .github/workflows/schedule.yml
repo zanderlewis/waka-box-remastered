@@ -1,4 +1,6 @@
 name: Update gist with WakaTime stats
+permissions:
+  contents: write
 on:
   schedule:
     - cron: "0 0 * * *"
